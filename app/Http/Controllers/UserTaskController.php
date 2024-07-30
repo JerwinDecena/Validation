@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class UserTaskConteroller extends Controller
+
+class UserTaskController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,7 +20,7 @@ class UserTaskConteroller extends Controller
      */
     public function create()
     {
-        //
+        return view('user_task');
     }
 
     /**
@@ -27,7 +28,15 @@ class UserTaskConteroller extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request ->validate([
+
+            'task_name' => 'required',
+            'status' => 'required',
+            'description' => 'required',
+            'deadline' => 'required|date'
+        ]);
+
+        return back() ->with('success', 'Data saved Successfuly');
     }
 
     /**

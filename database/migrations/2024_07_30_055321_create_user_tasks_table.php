@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('user_tasks', function (Blueprint $table) {
             $table->id();
+            $table->integer('user_id')->nullable();
+            $table->integer('task_name')->nullable();
+            $table->integer('Status',['Pending', 'OnProgress', 'Complete', 'Cancelled'])->nullable();
+            $table->integer('description')->nullable();
+            $table->integer('published')->nullable();
+            $table->integer('deadline')->nullable();
+            $table->integer('completed_at')->nullable();
             $table->timestamps();
         });
     }
