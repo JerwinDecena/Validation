@@ -8,43 +8,50 @@
 
 </head>
 <body>
-    <div class="container">
-        <div class="row">
-            <div clas="col-12">
-            <table class="table table-hover table-stripped">
-        <thead>
-            <tr>
-                <th>Task Name</th>
-                <th>Status</th>
-                <th>Description</th>
-                <th>Deadline</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($user_tasks as $user_task)
-            <tr>
-                <td>{{ $user_task->task_name }}</td>
-                <td>{{ $user_task->status }}</td>
-                <td>{{ $user_task->description }}</td>
-                <td>{{ $user_task->deadline }}</td>
-                <td>
-                    <a href="{{  url('user_task') }}/edit" class="btn btn-outline-success btn-sm">Edit</a>
-                    <form action="{{  url('user_task') }}" method="POST">
-                        @method('delete')
-                        @csrf
-                    <button type="submit"class="btn btn-outline-danger btn-sm" onclick="return confirm('Sure kana ba?')">Delete</button>
-                 </form>
+@extends('layouts.app')
+@section('content')
+<div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">{{ __('User Task List') }}</div>
+                    
+                    <div class="card-body">
+                        @if (session('success'))
+                            <div class="alert alert-success" role="alert">
+                                {{ session('success') }}
+                            </div>
+                        @endif
 
-                </td>
-            </tr>
-            @endforeach
-            <tr>
-                <td colspan="8" class="text-right">
-                 {!! $user_tasks->links() !!}     
-                </td>
-            </tr>
-        </tbody>
-    </table>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Task Name</th>
+                                    <th>Status</th>
+                                    <th>Description</th>
+                                    <th>Deadline</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($userTasks as $task)
+                                    <tr>
+                                        <td>{{ $task->task_name }}</td>
+                                        <td>{{ $task->status }}</td>
+                                        <td>{{ $task->description }}</td>
+                                        <td>{{ $task->deadline }}</td>
+                                        <td>
+                                            <a href="#" class="btn btn-sm btn-primary">Edit</a>
+                                            <a href="#" class="btn btn-sm btn-danger">Delete</a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+
+                        {{ $userTasks->links() }}
+                    </div>
+                </div>
             </div>
         </div>
     </div>
